@@ -78,6 +78,12 @@ variable "repl_subnet_group_tags" {
 # Instance
 ################################################################################
 
+variable "create_repl_instance" {
+  description = "Indicates whether a replication instace should be created"
+  type        = bool
+  default     = true
+}
+
 variable "repl_instance_allocated_storage" {
   description = "The amount of storage (in gigabytes) to be initially allocated for the replication instance. Min: 5, Max: 6144, Default: 50"
   type        = number
@@ -178,19 +184,6 @@ variable "repl_instance_timeouts" {
   description = "A map of timeouts for replication instance create/update/delete operations"
   type        = map(string)
   default     = {}
-}
-
-################################################################################
-# Instance
-################################################################################
-variable "compute_type" {
-  description = "Should a replication instance (default) or serverless configuration be created"
-  type        = string
-  default     = "INSTANCE"
-  validation {
-    condition     = contains(["INSTANCE", "SERVERLESS"], var.compute_type)
-    error_message = "Valid values for the compute_type variable are INSTANCE & SERVERLESS"
-  }
 }
 
 ################################################################################

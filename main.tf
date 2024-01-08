@@ -139,7 +139,7 @@ resource "aws_dms_replication_subnet_group" "this" {
 ################################################################################
 
 resource "aws_dms_replication_instance" "this" {
-  count = var.create && var.compute_type == "INSTANCE" ? 1 : 0
+  count = var.create && var.create_repl_instance ? 1 : 0
 
   allocated_storage            = var.repl_instance_allocated_storage
   allow_major_version_upgrade  = var.repl_instance_allow_major_version_upgrade
