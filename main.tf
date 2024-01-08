@@ -380,11 +380,11 @@ resource "aws_dms_s3_endpoint" "this" {
 }
 
 ################################################################################
-# Replication Task
+# Replication Task - Instance
 ################################################################################
 
 resource "aws_dms_replication_task" "this" {
-  for_each = { for k, v in var.replication_tasks : k => v if var.create }
+  for_each = { for k, v in var.replication_tasks : k => v if var.create && v.serverless_config == null}
 
   cdc_start_position        = try(each.value.cdc_start_position, null)
   cdc_start_time            = try(each.value.cdc_start_time, null)
@@ -399,6 +399,12 @@ resource "aws_dms_replication_task" "this" {
 
   tags = merge(var.tags, try(each.value.tags, {}))
 }
+
+################################################################################
+# Replication Task - Serverless
+################################################################################
+
+
 
 ################################################################################
 # Event Subscription
