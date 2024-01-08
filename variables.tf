@@ -181,6 +181,19 @@ variable "repl_instance_timeouts" {
 }
 
 ################################################################################
+# Instance
+################################################################################
+variable "compute_type" {
+  description = "Should a replication instance (default) or serverless configuration be created"
+  type        = string
+  default     = "INSTANCE"
+  validation {
+    condition     = contains(["INSTANCE", "SERVERLESS"], var.compute_type)
+    error_message = "Valid values for the compute_type variable are INSTANCE & SERVERLESS"
+  }
+}
+
+################################################################################
 # Endpoint
 ################################################################################
 
