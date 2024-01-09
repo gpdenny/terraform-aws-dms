@@ -417,7 +417,7 @@ resource "aws_dms_replication_config" "this" {
   replication_settings  = try(each.value.replication_task_settings, null)
   supplemental_settings = try(each.value.supplemental_task_settings, null)
 
-  start_replication = true
+  start_replication = try(each.value.start_replication_task, null)
 
   compute_config {
     availability_zone            = try(each.value.serverless_config.availability_zone, null)
